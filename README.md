@@ -2,6 +2,26 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+---
+
+## Backend Setup (FastAPI)
+
+To function properly, the frontend requires the FastAPI backend to be running.
+
+### Start the FastAPI backend
+
+Open a terminal at the root of your project (e.g., `/Users/andreas/Projects`) and run:
+
+```bash
+PYTHONPATH=. uvicorn genomics_backend.web_api.app:app --reload --reload-dir genomics_backend
+```
+
+Make sure your current working directory is **one level above** the `genomics_backend` folder.
+
+This will serve the backend on: [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+---
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -65,6 +85,19 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/a
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
+
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+---
+
+## Frontend-Backend Interaction
+
+The frontend sends a `.txt` genome file to the backend and expects to receive a processed report in response. The backend saves the report with a filename like:
+
+```
+genome_report_<original_filename>.txt
+```
+
+Make sure CORS is properly configured in the backend to allow frontend access.
