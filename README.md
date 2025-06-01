@@ -101,3 +101,32 @@ genome_report_<original_filename>.txt
 ```
 
 Make sure CORS is properly configured in the backend to allow frontend access.
+
+---
+
+## Docker Deployment (Production)
+
+To run the backend in production using Docker and deploy it (e.g., to Cloud Run), use the following Dockerfile.
+
+**Create this file in the parent directory** of `genomics_backend`, e.g., in `/Users/andreas/Projects`.
+
+### Dockerfile
+
+```
+FROM python:3.10-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
+
+WORKDIR /app
+
+COPY genomics_backend /app/genomics_backend
+COPY genomics_backend/requirements.txt /app/
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+CMD ["uvicorn", "genomics_backend.web_api.app:app", "--host", "0.0.0.0", "--port", "8080"]
+```
+
+Once built and pushed to your container registry (e.g., Google Artifact Registry), this image can be deployed to Cloud Run or any compatible container host.
