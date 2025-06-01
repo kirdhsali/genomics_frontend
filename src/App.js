@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+const BASE_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000';
 
 function App() {
   const [file, setFile] = useState(null);
@@ -12,7 +13,7 @@ function App() {
     formData.append('file', file);
 
     try {
-      const res = await fetch('http://127.0.0.1:8000/analyze', {
+      const res = await fetch(`${BASE_URL}/analyze`, {
         method: 'POST',
         body: formData,
       });
